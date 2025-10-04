@@ -31,7 +31,7 @@ const ContactForm = () => {
       if (!response.ok) {
         throw new Error("Erro ao enviar os dados");
       }
-      console.log('Post sucess!!')
+      console.log('Post sucess!!novo')
       toast.success("Cadastro realizado com sucesso! Em breve entraremos em contato.");
 
       // Limpar formulário após sucesso
