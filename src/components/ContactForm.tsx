@@ -13,38 +13,37 @@ const ContactForm = () => {
     email: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Validação básica
-    if (!formData.name || !formData.phone || !formData.email) {
-      toast.error("Por favor, preencha todos os campos");
-      return;
-    }
 
-    // Validação de email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      toast.error("Por favor, insira um email válido");
-      return;
-    }
+    try {
+      const response = await fetch(
+        "https://n8n-n8n.d6f9dp.easypanel.host/webhook/a68c13d2-cdd1-405c-ac6f-a3f0be27fb28",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
-    // Validação de telefone (formato brasileiro básico)
-    const phoneRegex = /^[0-9\s\-\(\)]+$/;
-    if (!phoneRegex.test(formData.phone) || formData.phone.length < 10) {
-      toast.error("Por favor, insira um telefone válido");
-      return;
-    }
+      if (!response.ok) {
+        throw new Error("Erro ao enviar os dados");
+      }
 
-    // Simulação de envio
-    toast.success("Cadastro realizado com sucesso! Em breve entraremos em contato.");
-    
-    // Limpar formulário
-    setFormData({
-      name: "",
-      phone: "",
-      email: ""
-    });
+      toast.success("Cadastro realizado com sucesso! Em breve entraremos em contato.");
+
+      // Limpar formulário após sucesso
+      setFormData({
+        name: "",
+        phone: "",
+        email: ""
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error("Ocorreu um erro ao enviar os dados. Tente novamente.");
+    }
   };
 
   return (
@@ -110,8 +109,8 @@ const ContactForm = () => {
                   />
                 </div>
 
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   size="lg"
                   className="w-full bg-primary text-primary-foreground hover:bg-primary/90 text-lg font-semibold h-14 shadow-medium hover:shadow-glow transition-all duration-300"
                 >
