@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Sparkles } from "lucide-react";
+import { trackFormSubmission, trackFormSuccess } from "@/lib/analytics";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,8 @@ const ContactForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    trackFormSubmission('contact');
 
     try {
       const response = await fetch(
@@ -31,7 +34,9 @@ const ContactForm = () => {
       if (!response.ok) {
         throw new Error("Erro ao enviar os dados");
       }
-      console.log('Post sucess!!novo')
+      
+      console.log('Post sucess!!novo');
+      trackFormSuccess('contact');
       toast.success("Cadastro realizado com sucesso! Em breve entraremos em contato.");
 
       // Limpar formulário após sucesso

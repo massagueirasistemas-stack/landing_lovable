@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
+import { trackCTAClick } from "@/lib/analytics";
 
 const Hero = () => {
   const scrollToForm = () => {
+    trackCTAClick('hero');
     const formSection = document.getElementById('cadastro');
     formSection?.scrollIntoView({ behavior: 'smooth' });
   };

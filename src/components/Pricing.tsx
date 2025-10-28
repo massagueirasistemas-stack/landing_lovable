@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Check } from "lucide-react";
+import { trackCTAClick, trackCouponView } from "@/lib/analytics";
 
 const benefits = [
   "Pedidos ilimitados",
@@ -12,7 +14,12 @@ const benefits = [
 ];
 
 const Pricing = () => {
+  useEffect(() => {
+    trackCouponView();
+  }, []);
+
   const scrollToForm = () => {
+    trackCTAClick('pricing');
     const formSection = document.getElementById('cadastro');
     formSection?.scrollIntoView({ behavior: 'smooth' });
   };

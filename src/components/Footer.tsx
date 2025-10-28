@@ -1,4 +1,5 @@
 import { MessageCircle, Instagram } from "lucide-react";
+import { trackSocialClick } from "@/lib/analytics";
 
 const Footer = () => {
   return (
@@ -25,6 +26,7 @@ const Footer = () => {
               href="https://wa.me/5511998454270" 
               target="_blank" 
               rel="noopener noreferrer"
+              onClick={() => trackSocialClick('whatsapp')}
               className="flex items-center justify-center md:justify-end gap-3 text-secondary-foreground/90 hover:text-primary transition-colors group"
             >
               <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -35,6 +37,7 @@ const Footer = () => {
               href="https://instagram.com/massagueirasistemas" 
               target="_blank" 
               rel="noopener noreferrer"
+              onClick={() => trackSocialClick('instagram')}
               className="flex items-center justify-center md:justify-end gap-3 text-secondary-foreground/90 hover:text-primary transition-colors group"
             >
               <Instagram className="w-5 h-5 group-hover:scale-110 transition-transform" />
